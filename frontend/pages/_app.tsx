@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserContextProvider>
       <Navbar />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </UserContextProvider>
   );
 }
