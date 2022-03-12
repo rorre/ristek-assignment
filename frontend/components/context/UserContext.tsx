@@ -10,6 +10,7 @@ interface UserData {
 
 interface IUserContext {
   user: UserData | null;
+  isLoading: boolean;
   mutateUser: () => void;
   logout: () => void;
 }
@@ -19,22 +20,32 @@ const useUser = () => useContext(UserContext);
 
 const UserContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserData | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(true);
+
   const mutateUser = () => {
     async function f() {
+      setLoading(true);
       try {
         let response = await axiosInstance.get("/me");
         if (response.status == 200) setUser(response.data);
-      } catch {}
+      } catch {
+      } finally {
+        setLoading(false);
+      }
     }
     f();
   };
 
   const logout = () => {
     async function f() {
+      setLoading(true);
       try {
         await axiosInstance.get("/auth/logout");
         setUser(null);
-      } catch {}
+      } catch {
+      } finally {
+        setLoading(false);
+      }
     }
     f();
   };
@@ -47,6 +58,7 @@ const UserContextProvider: React.FC = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
+        isLoading,
         mutateUser,
         logout,
       }}

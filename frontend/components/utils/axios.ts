@@ -1,35 +1,38 @@
 import axios, { AxiosResponse } from "axios";
+import toast from "react-hot-toast";
+import { DefaultResponse } from "types/responses";
 
 const axiosInstance = axios.create({
   withCredentials: true,
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-function submitHandler<T>(
+function submitHandler(
   url: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setError: React.Dispatch<React.SetStateAction<string>>,
-  setMessage: React.Dispatch<React.SetStateAction<string>>,
-  onSuccess?: (response: AxiosResponse<T>) => void
+  onSuccess?: (response: AxiosResponse<DefaultResponse>) => void
 ): React.FormEventHandler<HTMLFormElement> {
   return async (event) => {
     event.preventDefault();
+    const toastId = toast.loading("Sending...");
+
     setIsLoading(true);
-    setError("");
-    setMessage("");
 
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData);
     try {
       let response = await axiosInstance.post(url, formJson);
-      if (response.status !== 200) {
-        setError(response.data?.detail ?? "An error occured.");
+      toast.success(response.data.message, { id: toastId });
+
+      if (onSuccess) onSuccess(response);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        let message =
+          err.response?.data?.detail ?? err.message ?? "An error occured.";
+        toast.error(message, { id: toastId });
       } else {
-        setMessage(response.data.message);
-        if (onSuccess) onSuccess(response);
+        toast.error("An error occured.", { id: toastId });
       }
-    } catch {
-      setError("An error occured.");
     }
     setIsLoading(false);
   };

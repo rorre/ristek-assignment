@@ -6,15 +6,9 @@ const LoginBox = () => {
   const { mutateUser } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
 
-  const onSubmit = submitHandler(
-    "/auth/login",
-    setIsLoading,
-    setError,
-    setMessage,
-    () => mutateUser()
+  const onSubmit = submitHandler("/auth/login", setIsLoading, () =>
+    mutateUser()
   );
 
   return (
@@ -51,12 +45,12 @@ const LoginBox = () => {
           />
         </div>
 
-        {error && <p className="text-red-700">{error}</p>}
-        {message && <p className="text-green-700">{message}</p>}
         <button
           className={
-            "rounded bg-teal-800 text-white font-bold font-sans p-2 shadow " +
-            (isLoading ? "hover:cursor-not-allowed" : "hover:cursor-pointer")
+            "transition rounded text-white font-bold font-sans p-2 shadow " +
+            (isLoading
+              ? "hover:cursor-not-allowed bg-teal-800"
+              : "hover:cursor-pointer bg-teal-600")
           }
           disabled={isLoading}
         >
