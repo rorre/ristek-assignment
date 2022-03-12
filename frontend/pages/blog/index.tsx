@@ -1,14 +1,8 @@
-import axios, { AxiosError } from "axios";
 import StateMessage from "components/modules/BlogPage/StateMessage";
 import { axiosInstance } from "components/utils/axios";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
-import {
-  AiOutlineLoading3Quarters,
-  AiOutlineQuestion,
-  AiOutlineWarning,
-} from "react-icons/ai";
-import { ErrorResponse, PostResponse } from "types/responses";
+import { PostResponse } from "types/responses";
 
 const BlogPage: NextPage = () => {
   const [posts, setPosts] = useState<PostResponse[]>([]);

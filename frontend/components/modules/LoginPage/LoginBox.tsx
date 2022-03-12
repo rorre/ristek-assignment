@@ -1,5 +1,5 @@
 import { useUser } from "components/context/UserContext";
-import { axiosInstance } from "components/utils/axios";
+import { axiosInstance, submitHandler } from "components/utils/axios";
 import React, { useState } from "react";
 
 const LoginBox = () => {
@@ -9,27 +9,13 @@ const LoginBox = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError("");
-    setMessage("");
-
-    const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries(formData);
-    try {
-      let response = await axiosInstance.post("/auth/login", formJson);
-      if (response.status !== 200) {
-        setError(response.data?.detail ?? "An error occured.");
-      } else {
-        setMessage(response.data.message);
-        mutateUser();
-      }
-    } catch {
-      setError("An error occured.");
-    }
-    setIsLoading(false);
-  };
+  const onSubmit = submitHandler(
+    "/auth/login",
+    setIsLoading,
+    setError,
+    setMessage,
+    () => mutateUser()
+  );
 
   return (
     <div className="flex flex-col space-y-4 bg-white p-4">

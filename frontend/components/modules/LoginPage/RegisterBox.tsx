@@ -1,31 +1,17 @@
 import React, { useState } from "react";
-import { axiosInstance } from "components/utils/axios";
+import { axiosInstance, submitHandler } from "components/utils/axios";
 
 const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError("");
-    setMessage("");
-
-    const formData = new FormData(event.currentTarget);
-    const formJson = Object.fromEntries(formData);
-    try {
-      let response = await axiosInstance.post("/auth/register", formJson);
-      if (response.status !== 200) {
-        setError(response.data?.detail ?? "An error occured.");
-      } else {
-        setMessage(response.data.message);
-      }
-    } catch {
-      setError("An error occured.");
-    }
-    setIsLoading(false);
-  };
+  const onSubmit = submitHandler(
+    "/auth/register",
+    setIsLoading,
+    setError,
+    setMessage
+  );
 
   return (
     <div className="flex flex-col space-y-4 bg-white p-4">
