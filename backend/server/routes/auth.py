@@ -33,11 +33,15 @@ async def register(data: RegisterRequest):
     if user:
         raise HTTPException(status_code=400, detail="Username has been used.")
 
-    await User.objects.create(
+    new_user = await User.objects.create(
         name=data.name,
         username=data.username,
         password=pbkdf2_sha256.hash(data.password),
     )
+
+    # First user, mark as admin.
+    if new_user.id == 1:
+        await new_user.update(is_admin=True)
     return {"message": "Registered."}
 
 
