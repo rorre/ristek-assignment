@@ -54,5 +54,10 @@ async def register(data: RegisterRequest):
 @router.get("/logout")
 async def logout(user: User = Depends(manager)):
     response = JSONResponse(content={"message": "Logged out."})
-    response.set_cookie("access-token")
+    response.set_cookie(
+        manager.cookie_name,
+        httponly=True,
+        samesite="none",
+        secure=True,
+    )
     return response
