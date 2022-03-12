@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import StateMessage from "components/modules/BlogPage/StateMessage";
 import { axiosInstance } from "components/utils/axios";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
@@ -31,25 +32,23 @@ const BlogPage: NextPage = () => {
   }, []);
 
   return (
-    <div className="bg-gray-800 min-h-screen w-full py-8">
-      <div className="flex flex-col space-y-4 items-center justify-center min-h-screen">
-        {isLoading && (
-          <AiOutlineLoading3Quarters className="w-12 h-12 stroke-2 animate-spin text-white" />
-        )}
-        {error && (
-          <>
-            <AiOutlineWarning className="w-12 h-12 stroke-2 text-white" />
-            <span className="text-white">{error}</span>
-          </>
-        )}
-        {!isLoading && posts.length == 0 && (
-          <>
-            <AiOutlineQuestion className="w-12 h-12 stroke-2 text-white" />
-            <span className="text-white">Belum ada post apa-apa di sini!</span>
-          </>
-        )}
+    <div className="bg-gray-800 min-h-screen w-full py-8 flex flex-col">
+      <div className="bg-teal-800 text-white mt-6 md:mt-8 flex-grow-0 flex-shrink">
+        <div className="container px-8 sm:px-16 md:px-32 lg:px-64 py-4">
+          <h1 className="text-3xl font-bold font-montserrat">Blog</h1>
+          <span>
+            Tech, music, osu!, atau apapun yang sedang ada di dalam pikiran.
+          </span>
+        </div>
       </div>
-      <div className="container mx-auto px-8 sm:px-16 md:px-32 lg:px-64"></div>
+
+      <div className="container mx-auto px-8 sm:px-16 md:px-32 lg:px-64 flex-1 py-8">
+        <StateMessage
+          isLoading={isLoading}
+          error={error}
+          showEmpty={!isLoading && posts.length == 0}
+        />
+      </div>
     </div>
   );
 };
