@@ -1,8 +1,11 @@
 import React from "react";
 import { Button } from "@elements";
 import Link from "next/link";
+import { useUser } from "components/context/UserContext";
 
 const DesktopNavbar = () => {
+  const { user, logout } = useUser();
+
   return (
     <div className="max-w-screen mx-auto px-4 lg:px-8 xl:px-16 py-4 flex flex-row items-center justify-between font-bold text-white bg-teal-800">
       <div className="text-xl font-montserrat">Ren</div>
@@ -13,6 +16,14 @@ const DesktopNavbar = () => {
         <Link href="/blog">
           <a className=" hover:text-primer hover:cursor-pointer">Blog</a>
         </Link>
+
+        {user ? (
+          <Button onClick={logout}>Logout</Button>
+        ) : (
+          <Link passHref href="/auth">
+            <Button>Login</Button>
+          </Link>
+        )}
       </div>
     </div>
   );

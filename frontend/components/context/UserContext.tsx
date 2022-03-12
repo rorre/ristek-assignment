@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosInstance } from "components/utils/axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface UserData {
@@ -10,6 +11,7 @@ interface UserData {
 interface IUserContext {
   user: UserData | null;
   mutateUser: () => void;
+  logout: () => void;
 }
 
 const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -20,8 +22,18 @@ const UserContextProvider: React.FC = ({ children }) => {
   const mutateUser = () => {
     async function f() {
       try {
-        let response = await axios.get(process.env.NEXT_PUBLIC_API_URL + "/me");
+        let response = await axiosInstance.get("/me");
         if (response.status == 200) setUser(response.data);
+      } catch {}
+    }
+    f();
+  };
+
+  const logout = () => {
+    async function f() {
+      try {
+        await axiosInstance.get("/auth/logout");
+        setUser(null);
       } catch {}
     }
     f();
@@ -36,6 +48,7 @@ const UserContextProvider: React.FC = ({ children }) => {
       value={{
         user,
         mutateUser,
+        logout,
       }}
     >
       {children}

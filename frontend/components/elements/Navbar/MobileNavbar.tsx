@@ -3,8 +3,11 @@ import React from "react";
 import { Button } from "@elements";
 import { IoMenu } from "react-icons/io5";
 import Link from "next/link";
+import { useUser } from "components/context/UserContext";
 
 const MobileNavbar = () => {
+  const { user, logout } = useUser();
+
   return (
     <Disclosure as="nav" className="bg-teal-800 text-white p-4 font-bold">
       <div className="flex flex-row justify-between">
@@ -29,6 +32,14 @@ const MobileNavbar = () => {
           <Link href="/blog">
             <a className=" hover:text-primer hover:cursor-pointer">Blog</a>
           </Link>
+
+          {user ? (
+            <Button onClick={logout}>Logout</Button>
+          ) : (
+            <Link passHref href="/auth">
+              <Button>Login</Button>
+            </Link>
+          )}
         </Disclosure.Panel>
       </Transition>
     </Disclosure>

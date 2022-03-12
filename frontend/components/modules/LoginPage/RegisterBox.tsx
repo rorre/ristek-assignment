@@ -4,17 +4,22 @@ import { axiosInstance } from "components/utils/axios";
 const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setIsLoading(true);
+    setError("");
+    setMessage("");
 
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData);
     try {
       let response = await axiosInstance.post("/auth/register", formJson);
       if (response.status !== 200) {
-        setError(response.data?.message ?? "An error occured.");
+        setError(response.data?.detail ?? "An error occured.");
+      } else {
+        setMessage(response.data.message);
       }
     } catch {
       setError("An error occured.");
@@ -72,6 +77,7 @@ const RegisterBox = () => {
         </div>
 
         {error && <p className="text-red-700">{error}</p>}
+        {message && <p className="text-green-700">{message}</p>}
         <button
           className={
             "rounded bg-teal-800 text-white font-bold font-sans p-2 shadow " +
