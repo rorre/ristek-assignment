@@ -1,3 +1,4 @@
+import PreviewBox from "components/modules/BlogPage/PreviewBox";
 import StateMessage from "components/modules/BlogPage/StateMessage";
 import { axiosInstance } from "components/utils/axios";
 import type { NextPage } from "next";
@@ -40,8 +41,18 @@ const BlogPage: NextPage = () => {
         <StateMessage
           isLoading={isLoading}
           error={error}
-          showEmpty={!isLoading && posts.length == 0}
+          showEmpty={!isLoading && !error && posts.length == 0}
         />
+        <div className="flex flex-col space-y-4">
+          {posts.map((postData, i) => (
+            <PreviewBox
+              id={postData.id}
+              title={postData.title}
+              content={postData.content}
+              key={i}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

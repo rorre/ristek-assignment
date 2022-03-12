@@ -22,7 +22,7 @@ function submitHandler(
     const formJson = Object.fromEntries(formData);
     try {
       let response = await axiosInstance.post(url, formJson);
-      toast.success(response.data.message, { id: toastId });
+      toast.success(response.data.message || "Done!", { id: toastId });
 
       if (onSuccess) onSuccess(response);
     } catch (err) {

@@ -19,14 +19,14 @@ interface UserResponse {
 }
 
 interface PostResponse {
-  id: string;
+  id: number;
   title: string;
   content: string;
   creator: UserResponse;
 }
 
 interface CommentResponse {
-  id: string;
+  id: number;
   content: string;
   creator: UserResponse;
 }
