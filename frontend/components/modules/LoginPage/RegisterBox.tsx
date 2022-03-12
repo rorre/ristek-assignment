@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "components/utils/axios";
 
 const RegisterBox = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,10 +12,7 @@ const RegisterBox = () => {
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData);
     try {
-      let response = await axios.post(
-        process.env.NEXT_PUBLIC_API_URL + "/auth/register",
-        formJson
-      );
+      let response = await axiosInstance.post("/auth/register", formJson);
       if (response.status !== 200) {
         setError(response.data?.message ?? "An error occured.");
       }
