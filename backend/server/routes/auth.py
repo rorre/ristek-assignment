@@ -23,7 +23,13 @@ async def login(data: AuthRequest):
 
     response = JSONResponse({"message": "Logged in."})
     token = manager.create_access_token(data=dict(sub=dict(id=user.id)))
-    manager.set_cookie(response, token)
+    response.set_cookie(
+        key=manager.cookie_name,
+        value=token,
+        httponly=True,
+        samesite="none",
+        secure=True,
+    )
     return response
 
 
