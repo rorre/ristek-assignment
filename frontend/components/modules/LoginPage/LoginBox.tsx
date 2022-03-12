@@ -10,7 +10,7 @@ const LoginBox = () => {
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
-    const formJson = JSON.stringify(Object.fromEntries(formData));
+    const formJson = Object.fromEntries(formData);
     try {
       let response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + "/auth/login",
@@ -36,7 +36,12 @@ const LoginBox = () => {
           >
             Username
           </label>
-          <input type="text" id="usernameLogin" className="border shadow p-2" />
+          <input
+            type="text"
+            id="usernameLogin"
+            name="username"
+            className="border shadow p-2"
+          />
         </div>
 
         <div className="flex flex-col space-y-2">
@@ -50,6 +55,7 @@ const LoginBox = () => {
             type="password"
             id="passwordLogin"
             className="border shadow p-2"
+            name="password"
           />
         </div>
 
