@@ -7,6 +7,7 @@ from server.routes.auth import router as AuthRouter
 from server.routes.blog import router as BlogRouter
 from server.plugins import manager
 from server.helper.database import database
+from server.helper.settings import settings
 from server.models import User
 
 app = FastAPI()
@@ -15,6 +16,7 @@ app.include_router(BlogRouter)
 origins = [
     "http://localhost",
     "http://localhost:3000",
+    settings.frontend_url,
 ]
 
 app.add_middleware(
