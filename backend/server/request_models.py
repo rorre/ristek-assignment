@@ -1,19 +1,19 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 
 
 class AuthRequest(BaseModel):
-    username: str
-    password: str
+    username: constr(min_length=3)
+    password: constr(min_length=8)
 
 
 class RegisterRequest(AuthRequest):
-    name: str
+    name: constr(min_length=3)
 
 
 class CommentRequest(BaseModel):
-    content: str
+    content: constr(min_length=1)
 
 
 class PostRequest(BaseModel):
-    title: str
-    content: str
+    title: constr(min_length=4)
+    content: constr(min_length=16)

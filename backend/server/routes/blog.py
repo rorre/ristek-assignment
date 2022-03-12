@@ -20,13 +20,13 @@ router = APIRouter(prefix="/blog")
 
 @router.get("/list", response_model=List[PostResponse])
 async def list_post(page: int = Query(1)):
-    pages = await Post.objects.paginate(page).all()
+    pages = await Post.objects.select_related("creator").paginate(page).all()
     return pages
 
 
 @router.get("/{post_id}", response_model=PostResponse)
 async def get_post(post_id: int):
-    post = await Post.objects.get_or_none(id=post_id)
+    post = await Post.objects.select_related("creator").get_or_none(id=post_id)
     if not post:
         raise HTTPException(status_code=404, detail="Post not found!")
 
@@ -47,7 +47,12 @@ async def new_comment(
     if not post:
         raise HTTPException(status_code=404, detail="Post not found!")
 
-    comment = await Comment.objects.create(content=data.content, creator=user.id)
+    comment = await Comment.objects.create(
+        content=data.content,
+        creator=user.id,
+        post=post.id,
+    )
+    comment.creator = user
     return comment
 
 
@@ -61,4 +66,5 @@ async def new_post(data: PostRequest, user: User = Depends(manager)):
         content=data.content,
         creator=user.id,
     )
+    post.creator = user
     return post
