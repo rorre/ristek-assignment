@@ -18,10 +18,12 @@ const DesktopNavbar = () => {
         </Link>
 
         {user ? (
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={logout} className="font-bold">
+            Logout
+          </Button>
         ) : (
           <Link passHref href="/auth">
-            <Button>Login</Button>
+            <Button className="font-bold">Login</Button>
           </Link>
         )}
       </div>
