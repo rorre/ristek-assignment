@@ -2,8 +2,8 @@ from pydantic import BaseModel, constr
 
 
 class AuthRequest(BaseModel):
-    username: constr(min_length=3)
-    password: constr(min_length=8)
+    username: str
+    password: str
 
 
 class RegisterRequest(AuthRequest):
