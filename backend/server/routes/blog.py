@@ -20,7 +20,12 @@ router = APIRouter(prefix="/blog")
 
 @router.get("/list", response_model=List[PostResponse])
 async def list_post(page: int = Query(1)):
-    pages = await Post.objects.select_related("creator").paginate(page).all()
+    pages = (
+        await Post.objects.select_related("creator")
+        .order_by("-id")
+        .paginate(page)
+        .all()
+    )
     return pages
 
 
