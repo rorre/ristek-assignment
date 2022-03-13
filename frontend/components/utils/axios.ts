@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { DefaultResponse } from "types/responses";
+import { DefaultResponse, ErrorData } from "types/responses";
 
 const axiosInstance = axios.create({
   withCredentials: true,
@@ -27,9 +27,18 @@ function submitHandler(
       if (onSuccess) onSuccess(response);
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        let message =
+        let message: string | ErrorData[] =
           err.response?.data?.detail ?? err.message ?? "An error occured.";
-        toast.error(message, { id: toastId });
+
+        if (typeof message === "string") {
+          toast.error(message, { id: toastId });
+        } else {
+          if (err.response?.status === 422) {
+            toast.error("Invalid data sent.", { id: toastId });
+          } else {
+            toast.error("An error has occured.", { id: toastId });
+          }
+        }
       } else {
         toast.error("An error occured.", { id: toastId });
       }
