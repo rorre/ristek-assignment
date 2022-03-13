@@ -26,11 +26,21 @@ const MobileNavbar = () => {
         leaveTo="opacity-0 -translate-y-16"
       >
         <Disclosure.Panel className="flex flex-col space-y-4 mt-4">
-          <Link href="/">
-            <a className=" hover:text-primer hover:cursor-pointer">Home</a>
+          <Link passHref href="/">
+            <Disclosure.Button
+              as={"a"}
+              className=" hover:text-primer hover:cursor-pointer"
+            >
+              Home
+            </Disclosure.Button>
           </Link>
-          <Link href="/blog">
-            <a className=" hover:text-primer hover:cursor-pointer">Blog</a>
+          <Link passHref href="/blog">
+            <Disclosure.Button
+              as={"a"}
+              className=" hover:text-primer hover:cursor-pointer"
+            >
+              Blog
+            </Disclosure.Button>
           </Link>
 
           {user ? (
@@ -38,15 +48,22 @@ const MobileNavbar = () => {
               <hr className="border border-gray-200" />
               <span>Hello, {user.name.split(" ")[0]}</span>
               {user.is_admin && (
-                <Link href="/blog/create">
-                  <a className=" hover:text-primer hover:cursor-pointer">
+                <Link passHref href="/blog/create">
+                  <Disclosure.Button
+                    as={"a"}
+                    className=" hover:text-primer hover:cursor-pointer"
+                  >
                     Create New Post
-                  </a>
+                  </Disclosure.Button>
                 </Link>
               )}
-              <Button onClick={logout} className="font-bold">
+              <Disclosure.Button
+                as={Button}
+                onClick={logout}
+                className="font-bold"
+              >
                 Logout
-              </Button>
+              </Disclosure.Button>
             </>
           ) : (
             <Link passHref href="/auth">
