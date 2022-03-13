@@ -1,16 +1,18 @@
 import { useUser } from "components/context/UserContext";
 import { submitHandler } from "components/utils/axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { CommentFormProps } from "../interface";
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId, mutate }) => {
   const { user, isLoading: isUserLoading } = useUser();
   const [isLoading, setIsLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
   const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
     (event) =>
       submitHandler("/blog/" + postId + "/comment", setIsLoading, () => {
         mutate();
-        event.currentTarget.reset();
+        formRef.current?.reset();
       })(event),
     [postId, mutate]
   );
@@ -24,7 +26,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, mutate }) => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col space-y-4">
+    <form ref={formRef} onSubmit={onSubmit} className="flex flex-col space-y-4">
       <textarea
         className="bg-gray-200 rounded placeholder:text-gray-600 p-2 text-black font-mono"
         placeholder="Content here..."
