@@ -1,8 +1,10 @@
+import { useUser } from "components/context/UserContext";
 import { submitHandler } from "components/utils/axios";
 import React, { useCallback, useState } from "react";
 import { CommentFormProps } from "../interface";
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId, mutate }) => {
+  const { user, isLoading: isUserLoading } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
     (event) =>
@@ -12,6 +14,14 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, mutate }) => {
       })(event),
     [postId, mutate]
   );
+
+  if (!isUserLoading && !user) {
+    return (
+      <div className="bg-red-600 border border-red-800 rounded p-2">
+        You need to be logged in to comment.
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col space-y-4">
