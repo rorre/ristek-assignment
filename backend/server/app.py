@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from server.responses import UserResponse, DefaultResponse
 from server.routes.auth import router as AuthRouter
 from server.routes.blog import router as BlogRouter
+from server.routes.comment import router as CommentRouter
 from server.plugins import manager
 from server.helper.database import database
 from server.helper.settings import settings
@@ -13,6 +14,7 @@ from server.models import User
 app = FastAPI()
 app.include_router(AuthRouter)
 app.include_router(BlogRouter)
+app.include_router(CommentRouter)
 origins = [
     "http://localhost",
     "http://localhost:3000",
