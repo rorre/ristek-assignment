@@ -19,6 +19,8 @@ const DesktopNavbar = () => {
 
         {user ? (
           <>
+            <span>|</span>
+            <span>Hello, {user.name.split(" ")[0]}</span>
             <Link href="/blog/create">
               <a className=" hover:text-primer hover:cursor-pointer">
                 Create New Post
