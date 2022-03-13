@@ -7,10 +7,15 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-function submitHandler(
+function submitHandler<DefaultResponse>(
   url: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   onSuccess?: (response: AxiosResponse<DefaultResponse>) => void
+): React.FormEventHandler<HTMLFormElement>;
+function submitHandler<T>(
+  url: string,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  onSuccess?: (response: AxiosResponse<T>) => void
 ): React.FormEventHandler<HTMLFormElement> {
   return async (event) => {
     event.preventDefault();

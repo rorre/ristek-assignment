@@ -1,9 +1,18 @@
 import { submitHandler } from "components/utils/axios";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useCallback, useState } from "react";
+import { PostResponse } from "types/responses";
 
 const SubmissionForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const onSubmit = submitHandler("/blog/new", setIsLoading);
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
+    (event) =>
+      submitHandler<PostResponse>("/blog/new", setIsLoading, (response) =>
+        router.push("/blog/" + response.data.id)
+      )(event),
+    [router]
+  );
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col space-y-4">
