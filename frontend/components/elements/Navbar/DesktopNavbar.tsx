@@ -8,7 +8,10 @@ const DesktopNavbar = () => {
 
   return (
     <div className="max-w-screen mx-auto px-4 lg:px-8 xl:px-16 py-4 flex flex-row items-center justify-between font-bold text-white bg-teal-800">
-      <div className="text-xl font-montserrat">Ren</div>
+      <Link href="/">
+        <a className="text-xl font-montserrat">Ren</a>
+      </Link>
+
       <div className="flex flex-row space-x-4 justify-end items-center">
         <Link href="/">
           <a className=" hover:text-primer hover:cursor-pointer">Home</a>

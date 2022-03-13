@@ -11,7 +11,10 @@ const MobileNavbar = () => {
   return (
     <Disclosure as="nav" className="bg-teal-800 text-white p-4 font-bold">
       <div className="flex flex-row justify-between">
-        <div className="text-xl font-montserrat">Ren</div>
+        <Link href="/">
+          <a className="text-xl font-montserrat">Ren</a>
+        </Link>
+
         <Disclosure.Button className="h-6">
           <IoMenu />
         </Disclosure.Button>
