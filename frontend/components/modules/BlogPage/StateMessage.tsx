@@ -30,7 +30,7 @@ const StateMessage: React.FC<StateMessageProps> = ({
       {showEmpty && (
         <>
           <AiOutlineQuestion className="w-12 h-12 stroke-2 text-white" />
-          <span className="text-white">There&apos;s nothing here!!</span>
+          <span className="text-white">There&apos;s nothing here!</span>
         </>
       )}
     </div>
