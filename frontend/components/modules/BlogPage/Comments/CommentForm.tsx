@@ -6,9 +6,10 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, mutate }) => {
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit: React.FormEventHandler<HTMLFormElement> = useCallback(
     (event) =>
-      submitHandler("/blog/" + postId + "/comment", setIsLoading, () =>
-        mutate()
-      )(event),
+      submitHandler("/blog/" + postId + "/comment", setIsLoading, () => {
+        mutate();
+        event.currentTarget.reset();
+      })(event),
     [postId, mutate]
   );
 
