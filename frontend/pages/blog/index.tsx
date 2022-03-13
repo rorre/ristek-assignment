@@ -36,9 +36,7 @@ const BlogPage: NextPage = () => {
         <div className="bg-teal-800 text-white mt-6 md:mt-8 flex-grow-0 flex-shrink">
           <div className="container px-8 sm:px-16 md:px-32 lg:px-64 py-4">
             <h1 className="text-3xl font-bold font-montserrat">Blog</h1>
-            <span>
-              Tech, music, osu!, atau apapun yang sedang ada di dalam pikiran.
-            </span>
+            <span>Tech, music, osu!, or whatever that&apos;s on my mind.</span>
           </div>
         </div>
 
