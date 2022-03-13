@@ -7,7 +7,7 @@ import StateMessage from "../StateMessage";
 import CommentForm from "./CommentForm";
 
 const CommentBox: React.FC<CommentBoxProps> = ({ name, content }) => (
-  <div className="bg-gray-200 rounded flex flex-col space-y-2 p-4 text-black">
+  <div className="bg-gray-200 rounded flex flex-col space-y-2 p-4 text-black break-words">
     <h3 className="font-sans text-lg font-bold">{name}</h3>
     <hr className="border border-gray-500 w-full" />
 

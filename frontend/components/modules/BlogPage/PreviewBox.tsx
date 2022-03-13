@@ -14,7 +14,7 @@ const PreviewBox: React.FC<PostDetail> = ({ id, title, content }) => {
       </Link>
       <hr className="border border-gray-500 w-full" />
 
-      <p className="font-assistant">{content.split("\n")[0]}</p>
+      <p className="font-assistant break-words">{content.split("\n")[0]}</p>
     </div>
   );
 };

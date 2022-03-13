@@ -25,14 +25,16 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({ content }) => {
   return (
-    <Markdown
-      className={styles.postContent}
-      options={{
-        overrides: mdOverrides,
-      }}
-    >
-      {content}
-    </Markdown>
+    <div className="break-words">
+      <Markdown
+        className={styles.postContent}
+        options={{
+          overrides: mdOverrides,
+        }}
+      >
+        {content}
+      </Markdown>
+    </div>
   );
 };
 
