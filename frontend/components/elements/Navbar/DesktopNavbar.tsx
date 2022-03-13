@@ -18,9 +18,16 @@ const DesktopNavbar = () => {
         </Link>
 
         {user ? (
-          <Button onClick={logout} className="font-bold">
-            Logout
-          </Button>
+          <>
+            <Link href="/blog/create">
+              <a className=" hover:text-primer hover:cursor-pointer">
+                Create New Post
+              </a>
+            </Link>
+            <Button onClick={logout} className="font-bold">
+              Logout
+            </Button>
+          </>
         ) : (
           <Link passHref href="/auth">
             <Button className="font-bold">Login</Button>
