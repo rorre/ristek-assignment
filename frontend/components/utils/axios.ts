@@ -10,12 +10,14 @@ const axiosInstance = axios.create({
 function submitHandler<DefaultResponse>(
   url: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  onSuccess?: (response: AxiosResponse<DefaultResponse>) => void
+  onSuccess?: (response: AxiosResponse<DefaultResponse>) => void,
+  method?: "POST" | "PUT" | "PATCH" | "DELETE"
 ): React.FormEventHandler<HTMLFormElement>;
 function submitHandler<T>(
   url: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  onSuccess?: (response: AxiosResponse<T>) => void
+  onSuccess?: (response: AxiosResponse<T>) => void,
+  method: "POST" | "PUT" | "PATCH" | "DELETE" = "POST"
 ): React.FormEventHandler<HTMLFormElement> {
   return async (event) => {
     event.preventDefault();
@@ -26,7 +28,11 @@ function submitHandler<T>(
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData);
     try {
-      let response = await axiosInstance.post(url, formJson);
+      let response = await axiosInstance.request({
+        url: url,
+        method: method,
+        data: formJson,
+      });
       toast.success(response.data.message || "Done!", { id: toastId });
 
       if (onSuccess) onSuccess(response);

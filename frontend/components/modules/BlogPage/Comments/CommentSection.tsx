@@ -2,18 +2,10 @@ import axios from "axios";
 import { axiosInstance } from "components/utils/axios";
 import React, { useCallback, useEffect, useState } from "react";
 import { CommentResponse, ErrorResponse } from "types/responses";
-import { CommentBoxProps, CommentSectionProps } from "../interface";
+import { CommentSectionProps } from "../interface";
 import StateMessage from "../StateMessage";
+import CommentBox from "./CommentBox";
 import CommentForm from "./CommentForm";
-
-const CommentBox: React.FC<CommentBoxProps> = ({ name, content }) => (
-  <div className="bg-gray-200 rounded flex flex-col space-y-2 p-4 text-black break-words">
-    <h3 className="font-sans text-lg font-bold">{name}</h3>
-    <hr className="border border-gray-500 w-full" />
-
-    <p className="font-assistant">{content}</p>
-  </div>
-);
 
 const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
   const [comments, setComments] = useState<CommentResponse[]>([]);
@@ -55,8 +47,10 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
       />
       {comments.map((comment, i) => (
         <CommentBox
-          name={comment.creator.name}
+          commentId={comment.id}
+          creator={comment.creator}
           content={comment.content}
+          mutate={mutate}
           key={i}
         />
       ))}

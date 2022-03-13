@@ -1,3 +1,5 @@
+import { UserResponse } from "types/responses";
+
 interface PostDetail {
   id: number;
   title: string;
@@ -14,8 +16,10 @@ interface CommentFormProps {
 }
 
 interface CommentBoxProps {
-  name: string;
+  commentId: number;
+  creator: UserResponse;
   content: string;
+  mutate: () => void;
 }
 
 export type {
