@@ -27,7 +27,7 @@ const ProjectLayout: React.FC<LayoutProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className={
-            "sticky top-5 font-montserrat font-bold text-4xl " +
+            "sticky top-20 font-montserrat font-bold text-4xl " +
             "text-center md:text-right " +
             (alternate ? "text-white" : "text-black")
           }
