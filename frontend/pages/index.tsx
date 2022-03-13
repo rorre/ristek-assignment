@@ -4,10 +4,14 @@ import Header from "components/modules/MainPage/header";
 import Links from "components/modules/MainPage/links";
 import { Works, Projects } from "components/modules/MainPage/works";
 import type { NextPage } from "next";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <>
+      <Head>
+        <title>Ren</title>
+      </Head>
       <Loader>
         <Header />
         <About />
@@ -15,7 +19,7 @@ const Home: NextPage = () => {
         <Projects />
         <Links />
       </Loader>
-    </div>
+    </>
   );
 };
 
