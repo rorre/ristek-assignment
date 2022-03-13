@@ -21,11 +21,14 @@ const DesktopNavbar = () => {
           <>
             <span>|</span>
             <span>Hello, {user.name.split(" ")[0]}</span>
-            <Link href="/blog/create">
-              <a className=" hover:text-primer hover:cursor-pointer">
-                Create New Post
-              </a>
-            </Link>
+
+            {user.is_admin && (
+              <Link href="/blog/create">
+                <a className=" hover:text-primer hover:cursor-pointer">
+                  Create New Post
+                </a>
+              </Link>
+            )}
             <Button onClick={logout} className="font-bold">
               Logout
             </Button>
