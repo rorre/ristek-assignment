@@ -7,7 +7,7 @@ class AuthRequest(BaseModel):
 
 
 class RegisterRequest(BaseModel):
-    name: constr(min_length=3, max_length=128)
+    name: constr(min_length=3, max_length=64)
     username: constr(min_length=3, max_length=32)
     password: constr(min_length=8)
 
