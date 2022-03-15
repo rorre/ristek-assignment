@@ -5,12 +5,14 @@ import { useCallback, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { CommentBoxProps } from "../interface";
+import { DateTime } from "luxon";
 
 const CommentBox: React.FC<CommentBoxProps> = ({
   commentId,
   mutate,
   creator,
   content,
+  created,
 }) => {
   const { user } = useUser();
 
@@ -56,9 +58,14 @@ const CommentBox: React.FC<CommentBoxProps> = ({
   return (
     <div className="bg-gray-200 rounded flex flex-col space-y-2 p-4 text-black break-words">
       <div className="flex flex-row justify-between items-center">
-        <h3 className="font-sans text-lg font-bold break-all">
-          {creator.name}
-        </h3>
+        <div className="flex flex-col">
+          <h3 className="font-sans text-lg font-bold break-all">
+            {creator.name}
+          </h3>
+          <span className="text-gray-500 italic">
+            Posted on {DateTime.fromISO(created).toISODate()}
+          </span>
+        </div>
 
         {user?.username == creator.username && (
           <div className="flex flex-row space-x-4">

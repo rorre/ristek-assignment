@@ -50,6 +50,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postId }) => {
           commentId={comment.id}
           creator={comment.creator}
           content={comment.content}
+          created={comment.created}
           mutate={mutate}
           key={i}
         />

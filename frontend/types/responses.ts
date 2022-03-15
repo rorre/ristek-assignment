@@ -23,12 +23,14 @@ interface PostResponse {
   title: string;
   content: string;
   creator: UserResponse;
+  created: string;
 }
 
 interface CommentResponse {
   id: number;
   content: string;
   creator: UserResponse;
+  created: string;
 }
 
 export type {

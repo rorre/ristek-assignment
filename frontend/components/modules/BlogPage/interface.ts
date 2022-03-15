@@ -19,6 +19,7 @@ interface CommentBoxProps {
   commentId: number;
   creator: UserResponse;
   content: string;
+  created: string;
   mutate: () => void;
 }
 
