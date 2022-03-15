@@ -52,6 +52,7 @@ const BlogPage: NextPage = () => {
                 id={postData.id}
                 title={postData.title}
                 content={postData.content}
+                created={postData.created}
                 key={i}
               />
             ))}
