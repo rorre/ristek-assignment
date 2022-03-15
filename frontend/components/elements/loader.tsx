@@ -1,15 +1,17 @@
+import { useUser } from "components/context/UserContext";
 import { useState, useEffect } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 // This object exists just to aid react rendering stuff
 const Loader: React.FC = ({ children }) => {
-  const [isLoading, setLoading] = useState(true);
+  const { isLoading } = useUser();
   const [isGone, setGone] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 750);
-    setTimeout(() => setGone(true), 1200);
-  }, []);
+    if (!isLoading) {
+      setTimeout(() => setGone(true), 1200);
+    }
+  }, [isLoading]);
 
   return (
     <>

@@ -1,4 +1,3 @@
-import { Loader } from "@elements";
 import About from "components/modules/MainPage/about";
 import Header from "components/modules/MainPage/header";
 import Links from "components/modules/MainPage/links";
@@ -12,13 +11,12 @@ const Home: NextPage = () => {
       <Head>
         <title>Ren</title>
       </Head>
-      <Loader>
-        <Header />
-        <About />
-        <Works />
-        <Projects />
-        <Links />
-      </Loader>
+
+      <Header />
+      <About />
+      <Works />
+      <Projects />
+      <Links />
     </>
   );
 };
