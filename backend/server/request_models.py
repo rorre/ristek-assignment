@@ -6,8 +6,10 @@ class AuthRequest(BaseModel):
     password: str
 
 
-class RegisterRequest(AuthRequest):
+class RegisterRequest(BaseModel):
     name: constr(min_length=3)
+    username: constr(min_length=3)
+    password: constr(min_length=8)
 
 
 class CommentRequest(BaseModel):
