@@ -3,6 +3,7 @@ import { CommentSection } from "components/modules/BlogPage/Comments";
 import Post from "components/modules/BlogPage/Post";
 import StateMessage from "components/modules/BlogPage/StateMessage";
 import { axiosInstance } from "components/utils/axios";
+import { DateTime } from "luxon";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -52,9 +53,18 @@ const PostPage: NextPage = () => {
       <div className="bg-gray-800 min-h-screen w-full py-8 flex flex-col">
         <div className="bg-teal-800 text-white mt-6 md:mt-8 flex-grow-0 flex-shrink">
           <div className="container px-8 sm:px-16 md:px-32 lg:px-64 py-4">
-            <h1 className="text-3xl font-bold font-montserrat">
-              {isLoading ? "Loading..." : postData ? postData.title : error}
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="text-3xl font-bold font-montserrat">
+                {isLoading ? "Loading..." : postData ? postData.title : error}
+              </h1>
+              {!isLoading && postData ? (
+                <span>
+                  Posted on {DateTime.fromISO(postData.created).toISODate()}
+                </span>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
 
