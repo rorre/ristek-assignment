@@ -56,7 +56,9 @@ const CommentBox: React.FC<CommentBoxProps> = ({
   return (
     <div className="bg-gray-200 rounded flex flex-col space-y-2 p-4 text-black break-words">
       <div className="flex flex-row justify-between items-center">
-        <h3 className="font-sans text-lg font-bold">{creator.name}</h3>
+        <h3 className="font-sans text-lg font-bold break-all">
+          {creator.name}
+        </h3>
 
         {user?.username == creator.username && (
           <div className="flex flex-row space-x-4">
