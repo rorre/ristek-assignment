@@ -1,6 +1,8 @@
+import datetime
 from typing import TYPE_CHECKING, Generic
 
 import ormar
+import sqlalchemy
 
 if TYPE_CHECKING:
     from ormar.models import T
@@ -36,6 +38,9 @@ class Post(ormar.Model):
     title: str = ormar.String(max_length=128)
     content: str = ormar.Text()
     creator = ormar.ForeignKey(User, related_name="posts", nullable=False)
+    created: datetime.datetime = ormar.DateTime(
+        default=datetime.datetime.utcnow, nullable=False
+    )
 
     if TYPE_CHECKING:
         comments: QuerysetProxy["Comment"]
@@ -49,3 +54,6 @@ class Comment(ormar.Model):
     content: str = ormar.Text()
     creator = ormar.ForeignKey(User, related_name="comments", nullable=False)
     post = ormar.ForeignKey(Post, related_name="comments", nullable=False)
+    created: datetime.datetime = ormar.DateTime(
+        default=datetime.datetime.utcnow, nullable=False
+    )

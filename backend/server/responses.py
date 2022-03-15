@@ -19,9 +19,11 @@ class PostResponse(BaseModel):
     title: str
     content: str
     creator: UserResponse
+    created: datetime
 
 
 class CommentResponse(BaseModel):
     id: int
     content: str
     creator: UserResponse
+    created: datetime
