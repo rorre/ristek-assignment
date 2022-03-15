@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { DefaultResponse, ErrorData } from "types/responses";
+import { DefaultResponse, ErrorData, ErrorResponse } from "types/responses";
+import { formatRequestError } from "./response";
 
 const axiosInstance = axios.create({
   withCredentials: true,
@@ -45,12 +46,24 @@ function submitHandler<T>(
           toast.error(message, { id: toastId });
         } else {
           if (err.response?.status === 422) {
-            toast.error("Invalid data sent.", { id: toastId });
+            // Data sent is not satisfied by server
+            let responseData: ErrorResponse = err.response.data;
+
+            // Never happens, just let typescript happy
+            if (typeof responseData.detail === "string") {
+              return;
+            }
+
+            let toastMsg = formatRequestError(responseData.detail).join("\n");
+            toast.error(toastMsg, { id: toastId });
           } else {
+            // Anything else
             toast.error("An error has occured.", { id: toastId });
           }
         }
       } else {
+        // Not an axios error, what happened?
+        console.error(err);
         toast.error("An error occured.", { id: toastId });
       }
     }

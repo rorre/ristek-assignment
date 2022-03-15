@@ -1,5 +1,5 @@
 interface ErrorData {
-  loc: Record<number, string>;
+  loc: string[];
   msg: string;
   type: string;
 }
