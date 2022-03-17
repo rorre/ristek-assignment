@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import { Modal, Button } from "@elements";
 
 const Header = () => {
@@ -53,11 +54,11 @@ const Header = () => {
             >
               Works
             </Button>
-            <a href="https://blog.rorre.xyz">
+            <Link passHref href="/blog">
               <Button className="transition hover:cursor-pointer hover:bg-teal-700 w-full">
                 Blog
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
 
